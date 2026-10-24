@@ -1,0 +1,30 @@
+{
+  "name": "project-sprint-manager",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Project & Sprint Management application (FastAPI + MongoDB + Next.js)",
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "dev": "concurrently -n api,web -c blue,magenta \"npm:dev:backend\" \"npm:dev:frontend\"",
+    "dev:backend": "node scripts/py.mjs -m uvicorn app.main:app --reload --port 8000",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "seed": "node scripts/py.mjs -m scripts.seed",
+    "seed:reset": "node scripts/py.mjs -m scripts.seed --reset",
+    "test": "npm run test:backend && npm run test:frontend && npm run test:e2e",
+    "test:backend": "node scripts/py.mjs -m pytest",
+    "test:frontend": "npm --prefix frontend run test",
+    "test:e2e": "npm --prefix frontend run test:e2e",
+    "lint": "npm run lint:backend && npm run lint:frontend",
+    "lint:backend": "node scripts/py.mjs -m ruff check . && node scripts/py.mjs -m ruff format --check .",
+    "lint:frontend": "npm --prefix frontend run lint",
+    "format": "node scripts/py.mjs -m ruff format . && npm --prefix frontend run format",
+    "screenshots": "npm --prefix frontend run screenshots",
+    "check:secrets": "node scripts/check-secrets.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
