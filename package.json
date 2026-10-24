@@ -6,7 +6,7 @@
   "scripts": {
     "setup": "node scripts/setup.mjs",
     "dev": "concurrently -n api,web -c blue,magenta \"npm:dev:backend\" \"npm:dev:frontend\"",
-    "dev:backend": "node scripts/py.mjs -m uvicorn app.main:app --reload --port 8000",
+    "dev:backend": "node scripts/py.mjs -m scripts.dev",
     "dev:frontend": "npm --prefix frontend run dev",
     "seed": "node scripts/py.mjs -m scripts.seed",
     "seed:reset": "node scripts/py.mjs -m scripts.seed --reset",
