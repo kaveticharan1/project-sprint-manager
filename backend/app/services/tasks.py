@@ -1,3 +1,4 @@
+import asyncio
 import re
 
 from bson import ObjectId
@@ -76,9 +77,11 @@ async def _by_id(db: AsyncIOMotorDatabase, coll: str, ids: set) -> dict:
 
 
 async def serialize_many(db: AsyncIOMotorDatabase, docs: list[dict]) -> list[dict]:
-    products = await _by_id(db, PRODUCTS, {d["product_id"] for d in docs})
-    sprints = await _by_id(db, SPRINTS, {d["sprint_id"] for d in docs})
-    developers = await _by_id(db, DEVELOPERS, {d.get("developer_id") for d in docs})
+    products, sprints, developers = await asyncio.gather(
+        _by_id(db, PRODUCTS, {d["product_id"] for d in docs}),
+        _by_id(db, SPRINTS, {d["sprint_id"] for d in docs}),
+        _by_id(db, DEVELOPERS, {d.get("developer_id") for d in docs}),
+    )
     return [
         serialize(
             d,
@@ -146,9 +149,8 @@ async def list_tasks(
     **filters,
 ) -> dict:
     query = build_query(**filters)
-    total = await db[TASKS].count_documents(query)
     cursor = db[TASKS].find(query).sort(sort_spec(sort)).skip(page.skip).limit(page.page_size)
-    docs = await cursor.to_list(None)
+    total, docs = await asyncio.gather(db[TASKS].count_documents(query), cursor.to_list(None))
     return make_page(await serialize_many(db, docs), total, page)
 
 

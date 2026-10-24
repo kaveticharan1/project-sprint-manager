@@ -1,3 +1,4 @@
+import asyncio
 from datetime import date
 
 from bson import ObjectId
@@ -75,8 +76,11 @@ async def status_counts(db: AsyncIOMotorDatabase, ids: list[ObjectId]) -> dict[O
 
 async def serialize_many(db: AsyncIOMotorDatabase, docs: list[dict]) -> list[dict]:
     product_ids = list({d["product_id"] for d in docs})
-    products = {p["_id"]: p async for p in db[PRODUCTS].find({"_id": {"$in": product_ids}})}
-    counts = await status_counts(db, [d["_id"] for d in docs])
+    product_docs, counts = await asyncio.gather(
+        db[PRODUCTS].find({"_id": {"$in": product_ids}}).to_list(None),
+        status_counts(db, [d["_id"] for d in docs]),
+    )
+    products = {p["_id"]: p for p in product_docs}
     return [serialize(d, products.get(d["product_id"]), counts.get(d["_id"])) for d in docs]
 
 

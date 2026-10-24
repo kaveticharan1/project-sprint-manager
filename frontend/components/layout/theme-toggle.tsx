@@ -15,7 +15,8 @@ export function ThemeToggle() {
         <Button
           variant="ghost"
           size="icon"
-          aria-label={`Switch to ${next} mode`}
+          // The theme is unknown during server rendering, so the label must not depend on it.
+          aria-label="Toggle dark mode"
           onClick={() => setTheme(next)}
         >
           <Sun className="hidden dark:block" aria-hidden />
