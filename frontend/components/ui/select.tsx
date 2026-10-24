@@ -52,8 +52,10 @@ function SelectTrigger({
 function SelectContent({
   className,
   children,
-  position = "item-aligned",
-  align = "center",
+  // "popper" opens below the trigger and flips when space runs out. "item-aligned" can push
+  // options off-screen for triggers near the bottom of the viewport (e.g. inline table edits).
+  position = "popper",
+  align = "start",
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
   return (

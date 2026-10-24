@@ -19,6 +19,7 @@ export default defineConfig({
   projects: [
     { name: "smoke", testMatch: /smoke\.spec\.ts/ },
     { name: "screenshots", testMatch: /screenshots\.spec\.ts/ },
+    { name: "demo", testMatch: /demo\.spec\.ts/ },
   ],
   // Reuse servers started with `npm run dev`; otherwise start them for the run.
   webServer: [

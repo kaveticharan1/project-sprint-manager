@@ -19,7 +19,8 @@
     "lint:frontend": "npm --prefix frontend run lint",
     "format": "node scripts/py.mjs -m ruff format . && npm --prefix frontend run format",
     "screenshots": "npm --prefix frontend run screenshots",
-    "check:secrets": "node scripts/check-secrets.mjs"
+    "check:secrets": "node scripts/check-secrets.mjs",
+    "demo": "npm --prefix frontend run demo"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

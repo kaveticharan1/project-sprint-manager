@@ -71,7 +71,8 @@ if (!existsSync(venvPython)) {
 run(venvPython, ["-m", "pip", "install", "--upgrade", "pip", "-q"], backend);
 run(venvPython, ["-m", "pip", "install", "-r", "requirements-dev.txt", "-q"], backend);
 
-// 3. Node deps
+// 3. Node deps (root orchestration scripts + the frontend app)
+run("npm", ["install"], root);
 run("npm", ["install"], frontend);
 run("npm", ["exec", "--", "playwright", "install", "chromium"], frontend);
 
