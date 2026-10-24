@@ -5,6 +5,7 @@ Tests run against the real MongoDB from ``MONGODB_URI`` but only ever inside the
 deleted; indexes are kept).
 """
 
+import logging
 from datetime import timedelta
 
 import pytest
@@ -17,6 +18,8 @@ from app.main import create_app
 from app.utils import today
 
 TEST_DB = "sprint_manager_test"
+
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 
 def pytest_collection_modifyitems(items):
