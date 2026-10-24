@@ -1,6 +1,15 @@
 "use client";
 
-import { Bar, BarChart, Cell, LabelList, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import {
+  Bar,
+  BarChart,
+  Cell,
+  LabelList,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 export interface BarDatum {
   label: string;
@@ -30,7 +39,12 @@ export function HorizontalBars({
     <figure aria-label={ariaLabel}>
       <div style={{ height: chartHeight }} aria-hidden>
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data} layout="vertical" margin={{ top: 0, right: 36, bottom: 0, left: 0 }} barCategoryGap={8}>
+          <BarChart
+            data={data}
+            layout="vertical"
+            margin={{ top: 0, right: 36, bottom: 0, left: 0 }}
+            barCategoryGap={8}
+          >
             <XAxis type="number" hide allowDecimals={false} domain={[0, "dataMax"]} />
             <YAxis
               type="category"
@@ -48,14 +62,19 @@ export function HorizontalBars({
                 return (
                   <div className="rounded-lg border bg-popover px-3 py-2 text-sm text-popover-foreground shadow-md">
                     <div className="flex items-center gap-2 font-medium">
-                      <span className="size-2.5 rounded-sm" style={{ backgroundColor: datum.color }} />
+                      <span
+                        className="size-2.5 rounded-sm"
+                        style={{ backgroundColor: datum.color }}
+                      />
                       {datum.label}
                     </div>
                     <div className="tabular text-muted-foreground">
                       {datum.value} task{datum.value === 1 ? "" : "s"}
                       {datum.detail ? ` · ${datum.detail}` : ""}
                     </div>
-                    {onSelect && <div className="mt-1 text-xs text-muted-foreground">Click to view tasks</div>}
+                    {onSelect && (
+                      <div className="mt-1 text-xs text-muted-foreground">Click to view tasks</div>
+                    )}
                   </div>
                 );
               }}

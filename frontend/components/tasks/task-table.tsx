@@ -6,7 +6,14 @@ import Link from "next/link";
 import { SeverityBadge, TagBadge } from "@/components/badges";
 import { InlineAssignee, InlineStatus } from "@/components/tasks/inline-edits";
 import { useTaskUI } from "@/components/tasks/task-ui-provider";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type { Task, TaskSort } from "@/lib/api/types";
 import { dueLabel, formatShortDate } from "@/lib/format";
@@ -75,14 +82,26 @@ export function TaskTable({
         <TableHeader className="bg-muted/40">
           <TableRow className="hover:bg-transparent">
             <SortHeader label="Task" column="number" sort={sort} onSort={onSort} className="pl-4" />
-            <SortHeader label="Title" column="title" sort={sort} onSort={onSort} className="w-full min-w-48" />
+            <SortHeader
+              label="Title"
+              column="title"
+              sort={sort}
+              onSort={onSort}
+              className="w-full min-w-48"
+            />
             {show("product") && <TableHead>Product</TableHead>}
             {show("sprint") && <TableHead>Sprint</TableHead>}
             {show("assignee") && <TableHead>Assignee</TableHead>}
             <SortHeader label="Severity" column="severity" sort={sort} onSort={onSort} />
             <SortHeader label="Status" column="status" sort={sort} onSort={onSort} />
             <SortHeader label="Start" column="start_date" sort={sort} onSort={onSort} />
-            <SortHeader label="End" column="end_date" sort={sort} onSort={onSort} className="pr-4" />
+            <SortHeader
+              label="End"
+              column="end_date"
+              sort={sort}
+              onSort={onSort}
+              className="pr-4"
+            />
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -90,7 +109,10 @@ export function TaskTable({
             <TableRow
               key={task.id}
               onClick={() => openTask(task.id)}
-              className={cn("group cursor-pointer", task.status === "Done" && "text-muted-foreground")}
+              className={cn(
+                "group cursor-pointer",
+                task.status === "Done" && "text-muted-foreground",
+              )}
             >
               <TableCell className="pl-4">
                 <button
@@ -108,7 +130,9 @@ export function TaskTable({
                 <span
                   className={cn(
                     "block truncate font-medium",
-                    task.status === "Done" ? "line-through decoration-muted-foreground/40" : "text-foreground",
+                    task.status === "Done"
+                      ? "line-through decoration-muted-foreground/40"
+                      : "text-foreground",
                   )}
                   title={task.title}
                 >

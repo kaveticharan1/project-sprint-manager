@@ -15,7 +15,9 @@ export function StatusBar({
   const total = STATUSES.reduce((sum, s) => sum + (counts[s] ?? 0), 0);
   const done = counts.Done ?? 0;
   const summary = total
-    ? STATUSES.filter((s) => counts[s]).map((s) => `${counts[s]} ${s}`).join(", ")
+    ? STATUSES.filter((s) => counts[s])
+        .map((s) => `${counts[s]} ${s}`)
+        .join(", ")
     : "No tasks";
 
   return (
@@ -48,7 +50,8 @@ export function StatusBar({
                 style={{ backgroundColor: STATUS_META[status].chart }}
                 aria-hidden
               />
-              {status} <span className="tabular font-medium text-foreground">{counts[status] ?? 0}</span>
+              {status}{" "}
+              <span className="tabular font-medium text-foreground">{counts[status] ?? 0}</span>
             </li>
           ))}
         </ul>

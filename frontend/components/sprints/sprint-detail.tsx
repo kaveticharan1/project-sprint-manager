@@ -89,7 +89,11 @@ export function SprintDetail() {
           </p>
           <p className="flex items-start gap-2">
             <Target className="mt-0.5 size-4 shrink-0 text-muted-foreground" aria-hidden />
-            {s.goal ? <span>{s.goal}</span> : <span className="text-muted-foreground">No goal set.</span>}
+            {s.goal ? (
+              <span>{s.goal}</span>
+            ) : (
+              <span className="text-muted-foreground">No goal set.</span>
+            )}
           </p>
         </div>
         <div className="space-y-3">

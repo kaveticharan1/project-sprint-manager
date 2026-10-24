@@ -30,9 +30,7 @@ export function EmptyState({
         <Icon className="size-6 text-muted-foreground" aria-hidden />
       </div>
       <h3 className="text-base font-semibold">{title}</h3>
-      {description && (
-        <p className="mt-1 max-w-sm text-sm text-muted-foreground">{description}</p>
-      )}
+      {description && <p className="mt-1 max-w-sm text-sm text-muted-foreground">{description}</p>}
       {action && <div className="mt-5">{action}</div>}
     </div>
   );
@@ -71,7 +69,11 @@ export function ErrorState({
 
 export function TableSkeleton({ rows = 8, columns = 6 }: { rows?: number; columns?: number }) {
   return (
-    <div className="overflow-hidden rounded-xl border bg-card" aria-busy="true" aria-label="Loading">
+    <div
+      className="overflow-hidden rounded-xl border bg-card"
+      aria-busy="true"
+      aria-label="Loading"
+    >
       <div className="flex gap-4 border-b bg-muted/40 px-4 py-3">
         {Array.from({ length: columns }).map((_, i) => (
           <Skeleton key={i} className="h-4 flex-1" />

@@ -16,7 +16,13 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useAllProducts } from "@/hooks/use-products";
 import { useProductSprints, useSaveSprint } from "@/hooks/use-sprints";
@@ -102,8 +108,7 @@ function SprintForm({
   const selectedProduct = useWatch({ control, name: "product_id" });
   const startDate = useWatch({ control, name: "start_date" });
   const siblings = useProductSprints(sprint ? undefined : selectedProduct || undefined);
-  const nextNumber =
-    Math.max(0, ...(siblings.data?.items ?? []).map((s) => s.number)) + 1;
+  const nextNumber = Math.max(0, ...(siblings.data?.items ?? []).map((s) => s.number)) + 1;
 
   const onSubmit = handleSubmit(async (values) => {
     try {
@@ -161,7 +166,12 @@ function SprintForm({
         </Field>
       </div>
 
-      <Field id="sprint-name" label="Name" error={errors.name?.message} hint="Optional, e.g. “Checkout revamp”.">
+      <Field
+        id="sprint-name"
+        label="Name"
+        error={errors.name?.message}
+        hint="Optional, e.g. “Checkout revamp”."
+      >
         <Input
           id="sprint-name"
           placeholder="Sprint name"
@@ -204,7 +214,12 @@ function SprintForm({
         </Field>
       </div>
 
-      <Field id="sprint-goal" label="Goal" error={errors.goal?.message} hint="Optional. What does success look like?">
+      <Field
+        id="sprint-goal"
+        label="Goal"
+        error={errors.goal?.message}
+        hint="Optional. What does success look like?"
+      >
         <Textarea
           id="sprint-goal"
           rows={3}

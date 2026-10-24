@@ -15,14 +15,16 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useSaveDeveloper } from "@/hooks/use-developers";
 import { ROLES, type Developer } from "@/lib/api/types";
-import {
-  developerSchema,
-  type DeveloperFormInput,
-  type DeveloperFormOutput,
-} from "@/lib/schemas";
+import { developerSchema, type DeveloperFormInput, type DeveloperFormOutput } from "@/lib/schemas";
 import { zodResolver } from "@/lib/zod-resolver";
 
 export function DeveloperFormDialog({
@@ -45,9 +47,7 @@ export function DeveloperFormDialog({
               : "Add a teammate who can be assigned tasks."}
           </DialogDescription>
         </DialogHeader>
-        {open && (
-          <DeveloperForm developer={developer} onDone={() => onOpenChange(false)} />
-        )}
+        {open && <DeveloperForm developer={developer} onDone={() => onOpenChange(false)} />}
       </DialogContent>
     </Dialog>
   );

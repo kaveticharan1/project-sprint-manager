@@ -40,12 +40,14 @@ export function StatCard({
       {hint && <div className="mt-1 text-xs text-muted-foreground">{hint}</div>}
     </>
   );
-  const classes =
-    "block rounded-xl border bg-card p-4 shadow-xs transition-colors outline-none";
+  const classes = "block rounded-xl border bg-card p-4 shadow-xs transition-colors outline-none";
   return href ? (
     <Link
       href={href}
-      className={cn(classes, "hover:border-primary/40 hover:bg-accent/40 focus-visible:ring-2 focus-visible:ring-ring")}
+      className={cn(
+        classes,
+        "hover:border-primary/40 hover:bg-accent/40 focus-visible:ring-2 focus-visible:ring-ring",
+      )}
     >
       {body}
     </Link>

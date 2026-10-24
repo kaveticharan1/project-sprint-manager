@@ -49,7 +49,11 @@ export function FacetFilter({
   const [open, setOpen] = useState(false);
   const chosen = options.filter((o) => selected.includes(o.value));
   const summary =
-    chosen.length === 0 ? null : chosen.length === 1 ? chosen[0].label : `${chosen.length} selected`;
+    chosen.length === 0
+      ? null
+      : chosen.length === 1
+        ? chosen[0].label
+        : `${chosen.length} selected`;
 
   const toggle = (value: string) => {
     if (!multiple) {
@@ -68,7 +72,10 @@ export function FacetFilter({
           disabled={disabled}
           title={disabled ? disabledHint : undefined}
           aria-label={summary ? `${title}: ${summary}` : `Filter by ${title.toLowerCase()}`}
-          className={cn("h-9 max-w-56 border-dashed font-normal", summary && "border-solid bg-accent/50")}
+          className={cn(
+            "h-9 max-w-56 border-dashed font-normal",
+            summary && "border-solid bg-accent/50",
+          )}
         >
           <span className="text-muted-foreground">{title}</span>
           {summary && <span className="truncate font-medium">{summary}</span>}

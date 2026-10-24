@@ -144,7 +144,13 @@ export interface DashboardSummary {
   };
   tasks_by_status: Record<Status, number>;
   tasks_by_severity: Record<Severity, number>;
-  tasks_per_product: { product_id: string; name: string; tag: string; total: number; done: number }[];
+  tasks_per_product: {
+    product_id: string;
+    name: string;
+    tag: string;
+    total: number;
+    done: number;
+  }[];
   tasks_per_developer: {
     developer_id: string | null;
     name: string;

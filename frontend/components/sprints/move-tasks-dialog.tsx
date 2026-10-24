@@ -17,7 +17,13 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useMoveTasks, useProductSprints } from "@/hooks/use-sprints";
 import { errorMessage, isApiError } from "@/lib/api/client";
 import type { Sprint } from "@/lib/api/types";
@@ -62,7 +68,12 @@ export function MoveTasksDialog({
 
   const submit = (strategy: "reject" | "clamp") =>
     move.mutate(
-      { id: sprint.id, target_sprint_id: target, date_strategy: strategy, delete_source: deleteSource },
+      {
+        id: sprint.id,
+        target_sprint_id: target,
+        date_strategy: strategy,
+        delete_source: deleteSource,
+      },
       {
         onSuccess: (result) => {
           const where = targetSprint ? `Sprint ${targetSprint.number}` : "the target sprint";

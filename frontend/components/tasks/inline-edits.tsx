@@ -3,7 +3,13 @@
 import { toast } from "sonner";
 
 import { DeveloperAvatar, StatusBadge, StatusLabel } from "@/components/badges";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useAllDevelopers } from "@/hooks/use-developers";
 import { useQuickEditTask } from "@/hooks/use-tasks";
 import { errorMessage } from "@/lib/api/client";
@@ -30,16 +36,13 @@ export function InlineStatus({ task }: { task: Task }) {
             { task, edit: { field: "status", value: value as Status } },
             {
               onSuccess: (saved) => toast.success(`${saved.number} → ${saved.status}`),
-              onError: (error) => toast.error(`Couldn't update ${task.number}: ${errorMessage(error)}`),
+              onError: (error) =>
+                toast.error(`Couldn't update ${task.number}: ${errorMessage(error)}`),
             },
           )
         }
       >
-        <SelectTrigger
-          size="sm"
-          aria-label={`Status of ${task.number}`}
-          className={TRIGGER}
-        >
+        <SelectTrigger size="sm" aria-label={`Status of ${task.number}`} className={TRIGGER}>
           <StatusBadge status={task.status} />
         </SelectTrigger>
         <SelectContent>
@@ -74,7 +77,12 @@ export function InlineAssignee({ task }: { task: Task }) {
                 field: "assignee",
                 value: value === NONE ? null : value,
                 developer: developer
-                  ? { id: developer.id, name: developer.name, email: developer.email, is_active: developer.is_active }
+                  ? {
+                      id: developer.id,
+                      name: developer.name,
+                      email: developer.email,
+                      is_active: developer.is_active,
+                    }
                   : null,
               },
             },
@@ -85,7 +93,8 @@ export function InlineAssignee({ task }: { task: Task }) {
                     ? `${saved.number} assigned to ${saved.developer.name}`
                     : `${saved.number} is now unassigned`,
                 ),
-              onError: (error) => toast.error(`Couldn't reassign ${task.number}: ${errorMessage(error)}`),
+              onError: (error) =>
+                toast.error(`Couldn't reassign ${task.number}: ${errorMessage(error)}`),
             },
           );
         }}
@@ -97,8 +106,14 @@ export function InlineAssignee({ task }: { task: Task }) {
         >
           {task.developer ? (
             <span className="flex min-w-0 items-center gap-2">
-              <DeveloperAvatar name={task.developer.name} inactive={!task.developer.is_active} size="sm" />
-              <span className={task.developer.is_active ? "truncate" : "truncate text-muted-foreground"}>
+              <DeveloperAvatar
+                name={task.developer.name}
+                inactive={!task.developer.is_active}
+                size="sm"
+              />
+              <span
+                className={task.developer.is_active ? "truncate" : "truncate text-muted-foreground"}
+              >
                 {task.developer.name}
               </span>
             </span>

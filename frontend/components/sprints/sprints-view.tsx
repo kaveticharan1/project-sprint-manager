@@ -11,7 +11,13 @@ import { SprintCard } from "@/components/sprints/sprint-card";
 import { SprintFormDialog } from "@/components/sprints/sprint-form-dialog";
 import { CardGridSkeleton, EmptyState, ErrorState } from "@/components/states";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useAllProducts } from "@/hooks/use-products";
 import { useSprints } from "@/hooks/use-sprints";
@@ -83,7 +89,9 @@ export function SprintsView() {
           onValueChange={(value) => value && url.set({ state: value === "all" ? null : value })}
           aria-label="Filter by sprint status"
         >
-          <ToggleGroupItem value="all" className="px-3">All</ToggleGroupItem>
+          <ToggleGroupItem value="all" className="px-3">
+            All
+          </ToggleGroupItem>
           {SPRINT_STATES.map((s) => (
             <ToggleGroupItem key={s} value={s} className="px-3">
               {s}
@@ -142,7 +150,11 @@ export function SprintsView() {
         </div>
       )}
 
-      <SprintFormDialog open={creating} onOpenChange={setCreating} productId={productId || undefined} />
+      <SprintFormDialog
+        open={creating}
+        onOpenChange={setCreating}
+        productId={productId || undefined}
+      />
     </>
   );
 }

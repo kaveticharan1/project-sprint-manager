@@ -65,7 +65,9 @@ export function ConfirmDialog({
           <AlertDialogCancel disabled={pending}>Cancel</AlertDialogCancel>
           <Button
             variant={destructive ? "destructive" : "default"}
-            className={destructive ? "bg-destructive text-white hover:bg-destructive/90" : undefined}
+            className={
+              destructive ? "bg-destructive text-white hover:bg-destructive/90" : undefined
+            }
             onClick={confirm}
             disabled={pending}
           >

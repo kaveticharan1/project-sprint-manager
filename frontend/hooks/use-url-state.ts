@@ -1,5 +1,5 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 type UrlValue = string | number | boolean | readonly string[] | null | undefined;
 
@@ -11,10 +11,18 @@ export function useUrlState() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  // router.replace commits asynchronously. Remember the last URL we asked for so a second
+  // quick update builds on it instead of on the stale `searchParams` and drops the first.
+  const pending = useRef<string | null>(null);
+  const current = searchParams.toString();
+
+  useEffect(() => {
+    if (pending.current === current) pending.current = null;
+  }, [current]);
 
   const set = useCallback(
     (updates: Record<string, UrlValue>) => {
-      const next = new URLSearchParams(searchParams.toString());
+      const next = new URLSearchParams(pending.current ?? current);
       for (const [key, value] of Object.entries(updates)) {
         next.delete(key);
         if (Array.isArray(value)) value.forEach((v) => next.append(key, v));
@@ -24,9 +32,10 @@ export function useUrlState() {
       }
       if (!("page" in updates)) next.delete("page");
       const query = next.toString();
+      pending.current = query;
       router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
     },
-    [pathname, router, searchParams],
+    [pathname, router, current],
   );
 
   const clear = useCallback(

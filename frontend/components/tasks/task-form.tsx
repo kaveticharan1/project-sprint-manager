@@ -22,12 +22,7 @@ import { useProductSprints } from "@/hooks/use-sprints";
 import { useSaveTask } from "@/hooks/use-tasks";
 import { SEVERITIES, STATUSES, type Sprint, type Task } from "@/lib/api/types";
 import { formatRange, formatShortDate, toISODate } from "@/lib/format";
-import {
-  taskDateErrors,
-  taskSchema,
-  type TaskFormInput,
-  type TaskFormOutput,
-} from "@/lib/schemas";
+import { taskDateErrors, taskSchema, type TaskFormInput, type TaskFormOutput } from "@/lib/schemas";
 import { zodResolver } from "@/lib/zod-resolver";
 
 const NONE = "__none__";
@@ -43,7 +38,9 @@ const FIELDS = [
   "end_date",
 ] as const;
 
-export type TaskDefaults = Partial<Pick<TaskFormInput, "product_id" | "sprint_id" | "developer_id">>;
+export type TaskDefaults = Partial<
+  Pick<TaskFormInput, "product_id" | "sprint_id" | "developer_id">
+>;
 
 function toFormValues(task?: Task, defaults: TaskDefaults = {}): TaskFormInput {
   return {
@@ -126,7 +123,11 @@ export function TaskForm({
     const dateErrors = Object.entries(taskDateErrors(values, sprint));
     if (dateErrors.length) {
       dateErrors.forEach(([field, message], i) =>
-        setError(field as "start_date" | "end_date", { type: "sprint", message }, { shouldFocus: i === 0 }),
+        setError(
+          field as "start_date" | "end_date",
+          { type: "sprint", message },
+          { shouldFocus: i === 0 },
+        ),
       );
       return;
     }

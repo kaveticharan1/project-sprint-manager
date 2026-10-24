@@ -74,7 +74,12 @@ export function SprintStateBadge({ state }: { state: SprintState }) {
 
 export function InactiveBadge() {
   return (
-    <span className={cn(pill, "bg-zinc-100 text-zinc-600 ring-zinc-500/20 dark:bg-zinc-500/15 dark:text-zinc-300")}>
+    <span
+      className={cn(
+        pill,
+        "bg-zinc-100 text-zinc-600 ring-zinc-500/20 dark:bg-zinc-500/15 dark:text-zinc-300",
+      )}
+    >
       Inactive
     </span>
   );

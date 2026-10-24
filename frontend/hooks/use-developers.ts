@@ -17,8 +17,7 @@ export interface DeveloperQuery {
 export function useDevelopers(params: DeveloperQuery = {}) {
   return useQuery({
     queryKey: queryKeys.developers(params),
-    queryFn: ({ signal }) =>
-      api<Page<Developer>>("/developers", { params: { ...params }, signal }),
+    queryFn: ({ signal }) => api<Page<Developer>>("/developers", { params: { ...params }, signal }),
     placeholderData: keepPreviousData,
   });
 }

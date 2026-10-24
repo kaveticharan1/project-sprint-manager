@@ -37,7 +37,12 @@ function TaskCard({ task, dragging = false }: { task: Task; dragging?: boolean }
         <span className="font-mono text-xs font-semibold">{task.number}</span>
         {task.product && <TagBadge tag={task.product.tag} />}
       </div>
-      <p className={cn("line-clamp-2 text-sm font-medium", task.status === "Done" && "text-muted-foreground")}>
+      <p
+        className={cn(
+          "line-clamp-2 text-sm font-medium",
+          task.status === "Done" && "text-muted-foreground",
+        )}
+      >
         {task.title}
       </p>
       <div className="flex items-center justify-between gap-2">
@@ -54,7 +59,11 @@ function TaskCard({ task, dragging = false }: { task: Task; dragging?: boolean }
           </span>
           {task.developer ? (
             <span title={task.developer.name}>
-              <DeveloperAvatar name={task.developer.name} inactive={!task.developer.is_active} size="sm" />
+              <DeveloperAvatar
+                name={task.developer.name}
+                inactive={!task.developer.is_active}
+                size="sm"
+              />
             </span>
           ) : (
             <span className="size-6 rounded-full border border-dashed" title="Unassigned" />
@@ -67,7 +76,10 @@ function TaskCard({ task, dragging = false }: { task: Task; dragging?: boolean }
 
 function DraggableCard({ task }: { task: Task }) {
   const { openTask } = useTaskUI();
-  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({ id: task.id, data: task });
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
+    id: task.id,
+    data: task,
+  });
   return (
     <li>
       <button
@@ -162,7 +174,9 @@ export function TaskBoard({ tasks }: { tasks: Task[] }) {
           onDragStart: ({ active }) => `Picked up ${(active.data.current as Task).number}.`,
           onDragOver: ({ over }) => (over ? `Over ${over.id}.` : "Not over a column."),
           onDragEnd: ({ active, over }) =>
-            over ? `Moved ${(active.data.current as Task).number} to ${over.id}.` : "Move cancelled.",
+            over
+              ? `Moved ${(active.data.current as Task).number} to ${over.id}.`
+              : "Move cancelled.",
           onDragCancel: () => "Move cancelled.",
         },
       }}
@@ -172,7 +186,9 @@ export function TaskBoard({ tasks }: { tasks: Task[] }) {
           <Column key={status} status={status} tasks={tasks.filter((t) => t.status === status)} />
         ))}
       </div>
-      <DragOverlay dropAnimation={null}>{active && <TaskCard task={active} dragging />}</DragOverlay>
+      <DragOverlay dropAnimation={null}>
+        {active && <TaskCard task={active} dragging />}
+      </DragOverlay>
     </DndContext>
   );
 }

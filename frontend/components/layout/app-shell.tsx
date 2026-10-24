@@ -71,7 +71,12 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className={cn("flex-1 overflow-y-auto py-3", iconOnly ? "px-2" : "px-3")}>
           <Nav iconOnly={iconOnly} />
         </div>
-        <div className={cn("flex gap-1 border-t border-sidebar-border p-2", iconOnly ? "flex-col" : "items-center")}>
+        <div
+          className={cn(
+            "flex gap-1 border-t border-sidebar-border p-2",
+            iconOnly ? "flex-col" : "items-center",
+          )}
+        >
           <Tooltip>
             <TooltipTrigger asChild>
               <Button variant="ghost" size="icon" asChild>
@@ -95,7 +100,9 @@ export function AppShell({ children }: { children: ReactNode }) {
                   {collapsed ? <PanelLeftOpen aria-hidden /> : <PanelLeftClose aria-hidden />}
                 </Button>
               </TooltipTrigger>
-              <TooltipContent side="right">{collapsed ? "Expand" : "Collapse"} sidebar</TooltipContent>
+              <TooltipContent side="right">
+                {collapsed ? "Expand" : "Collapse"} sidebar
+              </TooltipContent>
             </Tooltip>
           )}
         </div>

@@ -22,13 +22,7 @@ import { useAllProducts } from "@/hooks/use-products";
 import { useProductSprints } from "@/hooks/use-sprints";
 import { useTasks } from "@/hooks/use-tasks";
 import { useUrlState } from "@/hooks/use-url-state";
-import {
-  SEVERITIES,
-  STATUSES,
-  type Severity,
-  type Status,
-  type TaskSort,
-} from "@/lib/api/types";
+import { SEVERITIES, STATUSES, type Severity, type Status, type TaskSort } from "@/lib/api/types";
 import { cn } from "@/lib/utils";
 
 const PAGE_SIZE = 25;
@@ -45,7 +39,9 @@ export function TasksView() {
     product_id: url.get("product_id"),
     sprint_id: url.get("sprint_id"),
     developer_id: url.get("developer_id"),
-    severity: url.getAll("severity").filter((s): s is Severity => SEVERITIES.includes(s as Severity)),
+    severity: url
+      .getAll("severity")
+      .filter((s): s is Severity => SEVERITIES.includes(s as Severity)),
     status: url.getAll("status").filter((s): s is Status => STATUSES.includes(s as Status)),
     overdue: url.get("overdue") === "true",
   };
@@ -83,7 +79,9 @@ export function TasksView() {
               type="single"
               variant="outline"
               value={view}
-              onValueChange={(value) => value && url.set({ view: value === "board" ? "board" : null })}
+              onValueChange={(value) =>
+                value && url.set({ view: value === "board" ? "board" : null })
+              }
               aria-label="Layout"
             >
               <ToggleGroupItem value="table" className="px-3" aria-label="Table view">
@@ -149,14 +147,19 @@ export function TasksView() {
         <div className={cn("transition-opacity", query.isPlaceholderData && "opacity-60")}>
           {query.data.total > BOARD_LIMIT && (
             <p className="mb-3 text-sm text-muted-foreground">
-              Showing the first {BOARD_LIMIT} of {query.data.total} tasks. Add filters to narrow the board.
+              Showing the first {BOARD_LIMIT} of {query.data.total} tasks. Add filters to narrow the
+              board.
             </p>
           )}
           <TaskBoard tasks={query.data.items} />
         </div>
       ) : (
         <div className={cn("transition-opacity", query.isPlaceholderData && "opacity-60")}>
-          <TaskTable tasks={query.data.items} sort={sort} onSort={(next) => url.set({ sort: next })} />
+          <TaskTable
+            tasks={query.data.items}
+            sort={sort}
+            onSort={(next) => url.set({ sort: next })}
+          />
           <Pager
             page={query.data.page}
             pages={query.data.pages}

@@ -45,9 +45,11 @@ export function useTaskUI(): TaskUI {
 
 /** Owns the app-wide "New task" dialog and the task detail sheet. */
 export function TaskUIProvider({ children }: { children: ReactNode }) {
-  const [createState, setCreateState] = useState<{ open: boolean; defaults?: TaskDefaults; key: number }>(
-    { open: false, key: 0 },
-  );
+  const [createState, setCreateState] = useState<{
+    open: boolean;
+    defaults?: TaskDefaults;
+    key: number;
+  }>({ open: false, key: 0 });
   const [taskId, setTaskId] = useState<string | null>(null);
 
   const openCreate = useCallback(
@@ -60,7 +62,10 @@ export function TaskUIProvider({ children }: { children: ReactNode }) {
     <TaskUIContext.Provider value={value}>
       {children}
 
-      <Dialog open={createState.open} onOpenChange={(open) => setCreateState((s) => ({ ...s, open }))}>
+      <Dialog
+        open={createState.open}
+        onOpenChange={(open) => setCreateState((s) => ({ ...s, open }))}
+      >
         <DialogContent className="flex max-h-[92svh] flex-col sm:max-w-2xl">
           <DialogHeader>
             <DialogTitle>New task</DialogTitle>
@@ -114,7 +119,11 @@ function TaskDetail({ id, onClose }: { id: string; onClose: () => void }) {
       <div className="p-6">
         <SheetTitle className="sr-only">Task unavailable</SheetTitle>
         <SheetDescription className="sr-only">The task could not be loaded</SheetDescription>
-        <ErrorState error={query.error} onRetry={() => query.refetch()} title="Couldn't load this task" />
+        <ErrorState
+          error={query.error}
+          onRetry={() => query.refetch()}
+          title="Couldn't load this task"
+        />
       </div>
     );
   }
@@ -125,7 +134,11 @@ function TaskDetail({ id, onClose }: { id: string; onClose: () => void }) {
         <div className="flex flex-wrap items-center gap-2 text-sm">
           <span className="font-mono text-sm font-semibold">{task.number}</span>
           {task.product && (
-            <Link href={`/products/${task.product.id}`} onClick={onClose} className="hover:opacity-80">
+            <Link
+              href={`/products/${task.product.id}`}
+              onClick={onClose}
+              className="hover:opacity-80"
+            >
               <TagBadge tag={task.product.tag} />
             </Link>
           )}
@@ -156,7 +169,12 @@ function TaskDetail({ id, onClose }: { id: string; onClose: () => void }) {
           task={task}
           onSaved={(saved) => toast.success(`Saved ${saved.number}`)}
           footerStart={
-            <Button type="button" variant="ghost" className="text-destructive" onClick={() => setConfirmDelete(true)}>
+            <Button
+              type="button"
+              variant="ghost"
+              className="text-destructive"
+              onClick={() => setConfirmDelete(true)}
+            >
               <Trash2 aria-hidden /> Delete
             </Button>
           }
@@ -202,7 +220,11 @@ function TaskMeta({ task, onNavigate }: { task: Task; onNavigate: () => void }) 
           onClick={onNavigate}
           className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"
         >
-          <DeveloperAvatar name={task.developer.name} inactive={!task.developer.is_active} size="sm" />
+          <DeveloperAvatar
+            name={task.developer.name}
+            inactive={!task.developer.is_active}
+            size="sm"
+          />
           {task.developer.name}
           {!task.developer.is_active && " (inactive)"}
         </Link>

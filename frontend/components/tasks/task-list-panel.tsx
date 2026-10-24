@@ -54,7 +54,9 @@ export function TaskListPanel({
           aria-label="Filter by status"
           className="flex-wrap"
         >
-          <ToggleGroupItem value="all" className="px-3">All</ToggleGroupItem>
+          <ToggleGroupItem value="all" className="px-3">
+            All
+          </ToggleGroupItem>
           {STATUSES.map((s) => (
             <ToggleGroupItem key={s} value={s} className="px-3">
               {s}
@@ -71,7 +73,11 @@ export function TaskListPanel({
         <EmptyState
           icon={ListTodo}
           title={status ? `No “${status}” tasks` : "No tasks yet"}
-          description={canCreate ? "Tasks you add will show up here." : "Create a sprint first, then add tasks to it."}
+          description={
+            canCreate
+              ? "Tasks you add will show up here."
+              : "Create a sprint first, then add tasks to it."
+          }
           action={
             canCreate && !status ? (
               <Button onClick={() => openCreate(createDefaults)}>

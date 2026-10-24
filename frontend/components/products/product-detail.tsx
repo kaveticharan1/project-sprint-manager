@@ -113,8 +113,18 @@ function ProductOverview({ product }: { product: Product }) {
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatCard label="Sprints" value={product.sprint_count} icon={IterationCw} href={`/products/${product.id}?tab=sprints`} />
-        <StatCard label="Tasks" value={product.task_count} icon={ListTodo} href={`/tasks?product_id=${product.id}`} />
+        <StatCard
+          label="Sprints"
+          value={product.sprint_count}
+          icon={IterationCw}
+          href={`/products/${product.id}?tab=sprints`}
+        />
+        <StatCard
+          label="Tasks"
+          value={product.task_count}
+          icon={ListTodo}
+          href={`/tasks?product_id=${product.id}`}
+        />
         <StatCard label="Open tasks" value={product.open_task_count} icon={Timer} />
         <StatCard
           label="Overdue"
@@ -135,7 +145,10 @@ function ProductOverview({ product }: { product: Product }) {
           {active ? (
             <div className="space-y-3">
               <p className="text-sm text-muted-foreground">
-                <Link href={`/sprints/${active.id}`} className="font-medium text-foreground hover:underline">
+                <Link
+                  href={`/sprints/${active.id}`}
+                  className="font-medium text-foreground hover:underline"
+                >
                   Sprint {active.number}
                   {active.name ? ` · ${active.name}` : ""}
                 </Link>{" "}

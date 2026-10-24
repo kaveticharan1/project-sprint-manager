@@ -154,8 +154,8 @@ export function ProductActions({
               <div className="space-y-2 text-sm text-muted-foreground">
                 <p>
                   It still has{" "}
-                  <strong className="text-foreground">{plural(blocked.sprints, "sprint")}</strong> and{" "}
-                  <strong className="text-foreground">{plural(blocked.tasks, "task")}</strong>.
+                  <strong className="text-foreground">{plural(blocked.sprints, "sprint")}</strong>{" "}
+                  and <strong className="text-foreground">{plural(blocked.tasks, "task")}</strong>.
                   Deleting it would orphan them.
                 </p>
                 <p>Delete its tasks and sprints first, then delete the product.</p>

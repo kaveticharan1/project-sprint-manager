@@ -25,7 +25,8 @@ interface VisualMeta {
 export const SEVERITY_META: Record<Severity, VisualMeta> = {
   Critical: {
     icon: ChevronsUp,
-    badge: "bg-red-50 text-red-700 ring-red-600/20 dark:bg-red-500/10 dark:text-red-300 dark:ring-red-400/30",
+    badge:
+      "bg-red-50 text-red-700 ring-red-600/20 dark:bg-red-500/10 dark:text-red-300 dark:ring-red-400/30",
     text: "text-red-600 dark:text-red-400",
     chart: "#dc2626",
   },

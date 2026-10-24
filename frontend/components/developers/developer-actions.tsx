@@ -45,7 +45,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   useAllDevelopers,
   useDeleteDeveloper,
@@ -187,7 +193,11 @@ export function DeveloperActions({
         }}
       >
         {developer.open_task_count > 0 && (
-          <Button variant="link" className="h-auto justify-start p-0" onClick={() => setDialog("reassign")}>
+          <Button
+            variant="link"
+            className="h-auto justify-start p-0"
+            onClick={() => setDialog("reassign")}
+          >
             <ArrowRightLeft aria-hidden /> Reassign their open tasks first
           </Button>
         )}
@@ -237,7 +247,8 @@ export function DeveloperActions({
             <AlertDialogDescription asChild>
               <div className="space-y-2 text-sm text-muted-foreground">
                 <p>
-                  They have <strong className="text-foreground">{plural(blockedCounts.total, "task")}</strong>
+                  They have{" "}
+                  <strong className="text-foreground">{plural(blockedCounts.total, "task")}</strong>
                   {blockedCounts.open > 0 && <> ({blockedCounts.open} still open)</>}. Deleting them
                   would leave those tasks pointing at nobody.
                 </p>
@@ -332,7 +343,11 @@ function ReassignDialog({
           </Select>
         </Field>
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)} disabled={reassign.isPending}>
+          <Button
+            variant="outline"
+            onClick={() => onOpenChange(false)}
+            disabled={reassign.isPending}
+          >
             Cancel
           </Button>
           <Button onClick={submit} disabled={!target || reassign.isPending}>

@@ -70,7 +70,9 @@ export function SprintActions({
             {variant === "row" && (
               <>
                 <DropdownMenuItem
-                  onSelect={() => openCreate({ product_id: sprint.product_id, sprint_id: sprint.id })}
+                  onSelect={() =>
+                    openCreate({ product_id: sprint.product_id, sprint_id: sprint.id })
+                  }
                 >
                   <Plus aria-hidden /> Add task
                 </DropdownMenuItem>
@@ -107,8 +109,9 @@ export function SprintActions({
         confirmLabel="Delete sprint"
         description={
           <p>
-            {sprint.name ? `“${sprint.name}” ` : ""}({formatRange(sprint.start_date, sprint.end_date)})
-            has no tasks and will be permanently removed.
+            {sprint.name ? `“${sprint.name}” ` : ""}(
+            {formatRange(sprint.start_date, sprint.end_date)}) has no tasks and will be permanently
+            removed.
           </p>
         }
         onConfirm={async () => {

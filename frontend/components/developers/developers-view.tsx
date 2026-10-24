@@ -13,7 +13,14 @@ import { Pager } from "@/components/pager";
 import { SearchInput } from "@/components/search-input";
 import { EmptyState, ErrorState, TableSkeleton } from "@/components/states";
 import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useDevelopers } from "@/hooks/use-developers";
 import { useUrlState } from "@/hooks/use-url-state";
@@ -63,9 +70,15 @@ export function DevelopersView() {
           onValueChange={(value) => value && url.set({ active: value === "all" ? null : value })}
           aria-label="Filter by status"
         >
-          <ToggleGroupItem value="all" className="px-3">All</ToggleGroupItem>
-          <ToggleGroupItem value="true" className="px-3">Active</ToggleGroupItem>
-          <ToggleGroupItem value="false" className="px-3">Inactive</ToggleGroupItem>
+          <ToggleGroupItem value="all" className="px-3">
+            All
+          </ToggleGroupItem>
+          <ToggleGroupItem value="true" className="px-3">
+            Active
+          </ToggleGroupItem>
+          <ToggleGroupItem value="false" className="px-3">
+            Inactive
+          </ToggleGroupItem>
         </ToggleGroup>
       </div>
 

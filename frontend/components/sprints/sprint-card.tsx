@@ -11,7 +11,13 @@ import { formatRange, plural } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 /** Sprint summary card. The title link stretches over the card; the actions menu sits above it. */
-export function SprintCard({ sprint, showProduct = true }: { sprint: Sprint; showProduct?: boolean }) {
+export function SprintCard({
+  sprint,
+  showProduct = true,
+}: {
+  sprint: Sprint;
+  showProduct?: boolean;
+}) {
   const done = sprint.status_counts.Done ?? 0;
   const percent = sprint.task_count ? Math.round((done / sprint.task_count) * 100) : 0;
 

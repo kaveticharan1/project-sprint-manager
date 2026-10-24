@@ -122,7 +122,11 @@ export function DashboardView() {
       {query.isPending ? (
         <DashboardSkeleton />
       ) : query.isError ? (
-        <ErrorState error={query.error} onRetry={() => query.refetch()} title="Couldn't load the dashboard" />
+        <ErrorState
+          error={query.error}
+          onRetry={() => query.refetch()}
+          title="Couldn't load the dashboard"
+        />
       ) : (
         <DashboardContent data={query.data} />
       )}
@@ -223,8 +227,14 @@ function DashboardContent({ data }: { data: DashboardSummary }) {
                         {p.done}/{p.total} done · {percent}%
                       </span>
                     </div>
-                    <div className="flex h-2 gap-0.5 overflow-hidden rounded-full bg-muted" aria-hidden>
-                      <div className="rounded-full bg-emerald-600" style={{ width: `${percent}%` }} />
+                    <div
+                      className="flex h-2 gap-0.5 overflow-hidden rounded-full bg-muted"
+                      aria-hidden
+                    >
+                      <div
+                        className="rounded-full bg-emerald-600"
+                        style={{ width: `${percent}%` }}
+                      />
                     </div>
                   </Link>
                 </li>
@@ -233,7 +243,11 @@ function DashboardContent({ data }: { data: DashboardSummary }) {
           </ul>
         </Panel>
 
-        <Panel title="Active sprints" icon={IterationCw} action={<ViewAll href="/sprints?state=Active" />}>
+        <Panel
+          title="Active sprints"
+          icon={IterationCw}
+          action={<ViewAll href="/sprints?state=Active" />}
+        >
           {data.active_sprints.length === 0 ? (
             <p className="text-sm text-muted-foreground">No sprint is running today.</p>
           ) : (
@@ -249,7 +263,9 @@ function DashboardContent({ data }: { data: DashboardSummary }) {
                         <TagBadge tag={s.tag} />
                         <span className="truncate font-medium">
                           Sprint {s.number}
-                          {s.name && <span className="font-normal text-muted-foreground"> · {s.name}</span>}
+                          {s.name && (
+                            <span className="font-normal text-muted-foreground"> · {s.name}</span>
+                          )}
                         </span>
                       </span>
                       <span className="tabular shrink-0 text-xs text-muted-foreground">
@@ -279,19 +295,29 @@ function DashboardContent({ data }: { data: DashboardSummary }) {
                 <TaskRow
                   key={t.id}
                   task={t}
-                  meta={<span className="font-medium text-destructive">{dueLabel(t.end_date)}</span>}
+                  meta={
+                    <span className="font-medium text-destructive">{dueLabel(t.end_date)}</span>
+                  }
                 />
               ))}
             </ul>
           )}
         </Panel>
-        <Panel title="Due this week" icon={CalendarClock} action={<ViewAll href="/tasks?sort=end_date" />}>
+        <Panel
+          title="Due this week"
+          icon={CalendarClock}
+          action={<ViewAll href="/tasks?sort=end_date" />}
+        >
           {data.due_this_week.length === 0 ? (
             <p className="text-sm text-muted-foreground">Nothing due in the next 7 days.</p>
           ) : (
             <ul className="-mx-2">
               {data.due_this_week.map((t) => (
-                <TaskRow key={t.id} task={t} meta={<span className="text-muted-foreground">{dueLabel(t.end_date)}</span>} />
+                <TaskRow
+                  key={t.id}
+                  task={t}
+                  meta={<span className="text-muted-foreground">{dueLabel(t.end_date)}</span>}
+                />
               ))}
             </ul>
           )}
@@ -313,7 +339,9 @@ function DashboardContent({ data }: { data: DashboardSummary }) {
                 meta={
                   <>
                     <StatusBadge status={t.status} />
-                    <span className="text-muted-foreground">updated {relativeTime(t.updated_at)}</span>
+                    <span className="text-muted-foreground">
+                      updated {relativeTime(t.updated_at)}
+                    </span>
                   </>
                 }
               />
@@ -331,16 +359,23 @@ function DashboardContent({ data }: { data: DashboardSummary }) {
                   {d.developer_id ? (
                     <DeveloperAvatar name={d.name} inactive={!d.is_active} size="sm" />
                   ) : (
-                    <span className="size-6 shrink-0 rounded-full border border-dashed" aria-hidden />
+                    <span
+                      className="size-6 shrink-0 rounded-full border border-dashed"
+                      aria-hidden
+                    />
                   )}
-                  <span className={cn("w-28 truncate", !d.is_active && "text-muted-foreground")}>{d.name}</span>
+                  <span className={cn("w-28 truncate", !d.is_active && "text-muted-foreground")}>
+                    {d.name}
+                  </span>
                   <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted" aria-hidden>
                     <span
                       className="block h-full rounded-full bg-primary"
                       style={{ width: `${(d.open / maxWorkload) * 100}%` }}
                     />
                   </span>
-                  <span className="tabular w-14 text-right text-xs text-muted-foreground">{d.open} open</span>
+                  <span className="tabular w-14 text-right text-xs text-muted-foreground">
+                    {d.open} open
+                  </span>
                 </Link>
               </li>
             ))}

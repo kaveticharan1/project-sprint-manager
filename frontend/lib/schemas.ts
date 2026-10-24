@@ -6,9 +6,7 @@ import { formatDate } from "@/lib/format";
 /** Client-side mirrors of the API's validation rules. The API stays the source of truth. */
 
 const requiredDate = (label: string) =>
-  z
-    .string({ error: `${label} is required` })
-    .regex(/^\d{4}-\d{2}-\d{2}$/, `${label} is required`);
+  z.string({ error: `${label} is required` }).regex(/^\d{4}-\d{2}-\d{2}$/, `${label} is required`);
 
 const optionalText = (max: number, label: string) =>
   z
@@ -37,11 +35,7 @@ export const productSchema = z.object({
     .trim()
     .min(2, "Name must be at least 2 characters")
     .max(100, "Name must be at most 100 characters"),
-  tag: z
-    .string()
-    .trim()
-    .toUpperCase()
-    .regex(TAG_PATTERN, "Use 2–8 letters or digits (A–Z, 0–9)"),
+  tag: z.string().trim().toUpperCase().regex(TAG_PATTERN, "Use 2–8 letters or digits (A–Z, 0–9)"),
   description: optionalText(2000, "Description"),
 });
 export type ProductFormInput = z.input<typeof productSchema>;

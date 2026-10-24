@@ -84,7 +84,13 @@ function ActiveNavList(props: { iconOnly: boolean; onNavigate?: () => void }) {
 }
 
 /** Primary navigation; the active item is resolved client-side from the current path. */
-export function Nav({ iconOnly = false, onNavigate }: { iconOnly?: boolean; onNavigate?: () => void }) {
+export function Nav({
+  iconOnly = false,
+  onNavigate,
+}: {
+  iconOnly?: boolean;
+  onNavigate?: () => void;
+}) {
   return (
     <nav aria-label="Main">
       <Suspense fallback={<NavList pathname={null} iconOnly={iconOnly} />}>

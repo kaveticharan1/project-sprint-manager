@@ -42,12 +42,12 @@ export const EMPTY_FILTERS: TaskFilterState = {
 export function hasActiveFilters(filters: TaskFilterState): boolean {
   return Boolean(
     filters.q ||
-      filters.product_id ||
-      filters.sprint_id ||
-      filters.developer_id ||
-      filters.severity.length ||
-      filters.status.length ||
-      filters.overdue,
+    filters.product_id ||
+    filters.sprint_id ||
+    filters.developer_id ||
+    filters.severity.length ||
+    filters.status.length ||
+    filters.overdue,
   );
 }
 
@@ -133,12 +133,21 @@ export function TaskFilterToolbar({
     });
   }
   if (filters.severity.length) {
-    chips.push({ key: "severity", label: `Severity: ${filters.severity.join(", ")}`, clear: { severity: [] } });
+    chips.push({
+      key: "severity",
+      label: `Severity: ${filters.severity.join(", ")}`,
+      clear: { severity: [] },
+    });
   }
   if (filters.status.length) {
-    chips.push({ key: "status", label: `Status: ${filters.status.join(", ")}`, clear: { status: [] } });
+    chips.push({
+      key: "status",
+      label: `Status: ${filters.status.join(", ")}`,
+      clear: { status: [] },
+    });
   }
-  if (filters.overdue) chips.push({ key: "overdue", label: "Overdue only", clear: { overdue: false } });
+  if (filters.overdue)
+    chips.push({ key: "overdue", label: "Overdue only", clear: { overdue: false } });
 
   return (
     <div className="space-y-3">
@@ -181,7 +190,11 @@ export function TaskFilterToolbar({
           title="Severity"
           multiple
           searchable={false}
-          options={SEVERITIES.map((s) => ({ value: s, label: s, content: <SeverityLabel severity={s} /> }))}
+          options={SEVERITIES.map((s) => ({
+            value: s,
+            label: s,
+            content: <SeverityLabel severity={s} />,
+          }))}
           selected={filters.severity}
           onChange={(values) => onChange({ severity: values as Severity[] })}
         />
@@ -189,7 +202,11 @@ export function TaskFilterToolbar({
           title="Status"
           multiple
           searchable={false}
-          options={STATUSES.map((s) => ({ value: s, label: s, content: <StatusLabel status={s} /> }))}
+          options={STATUSES.map((s) => ({
+            value: s,
+            label: s,
+            content: <StatusLabel status={s} />,
+          }))}
           selected={filters.status}
           onChange={(values) => onChange({ status: values as Status[] })}
         />

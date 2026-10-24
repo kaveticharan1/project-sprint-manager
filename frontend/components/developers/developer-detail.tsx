@@ -132,9 +132,15 @@ export function DeveloperDetail() {
           onValueChange={(value) => value && url.set({ show: value === "open" ? null : value })}
           aria-label="Filter tasks"
         >
-          <ToggleGroupItem value="open" className="px-3">Open</ToggleGroupItem>
-          <ToggleGroupItem value="done" className="px-3">Done</ToggleGroupItem>
-          <ToggleGroupItem value="all" className="px-3">All</ToggleGroupItem>
+          <ToggleGroupItem value="open" className="px-3">
+            Open
+          </ToggleGroupItem>
+          <ToggleGroupItem value="done" className="px-3">
+            Done
+          </ToggleGroupItem>
+          <ToggleGroupItem value="all" className="px-3">
+            All
+          </ToggleGroupItem>
         </ToggleGroup>
       </div>
 
@@ -145,7 +151,13 @@ export function DeveloperDetail() {
       ) : tasks.data.items.length === 0 ? (
         <EmptyState
           icon={ListTodo}
-          title={show === "open" ? "No open tasks" : show === "done" ? "Nothing completed yet" : "No tasks yet"}
+          title={
+            show === "open"
+              ? "No open tasks"
+              : show === "done"
+                ? "Nothing completed yet"
+                : "No tasks yet"
+          }
           description={
             dev.is_active
               ? `Assign a task to ${dev.name} to see it here.`
