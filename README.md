@@ -2,7 +2,7 @@
 
 SprintFlow is a full-stack app for managing **developers, products, sprints and tasks**. It has a FastAPI + MongoDB backend that enforces every business rule, and a Next.js frontend in the style of a Linear-like admin tool, with dark mode, URL-shareable filters and a Kanban board.
 
-![Dashboard](docs/screenshots/01-dashboard.png)
+![Dashboard](screenshots/01-dashboard.png)
 
 🎬 **Demo video (40 s):** [`docs/demo.webm`](docs/demo.webm) is a tour through the dashboard, filters, task sheet, inline edits, the Kanban board, sprints, products and dark mode. It was recorded with Playwright (`npm run demo`).
 
@@ -66,14 +66,14 @@ SprintFlow is a full-stack app for managing **developers, products, sprints and 
 
 | | |
 |---|---|
-| ![Tasks with filters](docs/screenshots/02-tasks-filtered.png) Tasks: URL filters, chips, inline edits | ![Kanban](docs/screenshots/11-kanban-board.png) Kanban board (drag-and-drop) |
-| ![Task form](docs/screenshots/03-task-form.png) New task form (sprint list scoped to product) | ![Validation](docs/screenshots/04-validation-errors.png) Inline validation errors |
-| ![Task detail](docs/screenshots/05-task-detail.png) Task detail sheet with full edit | ![Sprint detail](docs/screenshots/06-sprint-detail.png) Sprint detail |
-| ![Product detail](docs/screenshots/07-product-detail.png) Product detail (Sprints tab) | ![Sprints](docs/screenshots/10-sprints.png) Sprints grouped by product |
-| ![Developers](docs/screenshots/08-developers.png) Developers (inactive greyed out) | ![Blocked delete](docs/screenshots/09-delete-blocked.png) Blocked delete with alternatives |
-| ![Dark dashboard](docs/screenshots/12-dark-mode-dashboard.png) Dark mode | ![Dark tasks](docs/screenshots/13-dark-mode-tasks.png) Dark mode: tasks |
+| ![Tasks with filters](screenshots/02-tasks-filtered.png) Tasks: URL filters, chips, inline edits | ![Kanban](screenshots/11-kanban-board.png) Kanban board (drag-and-drop) |
+| ![Task form](screenshots/03-task-form.png) New task form (sprint list scoped to product) | ![Validation](screenshots/04-validation-errors.png) Inline validation errors |
+| ![Task detail](screenshots/05-task-detail.png) Task detail sheet with full edit | ![Sprint detail](screenshots/06-sprint-detail.png) Sprint detail |
+| ![Product detail](screenshots/07-product-detail.png) Product detail (Sprints tab) | ![Sprints](screenshots/10-sprints.png) Sprints grouped by product |
+| ![Developers](screenshots/08-developers.png) Developers (inactive greyed out) | ![Blocked delete](screenshots/09-delete-blocked.png) Blocked delete with alternatives |
+| ![Dark dashboard](screenshots/12-dark-mode-dashboard.png) Dark mode | ![Dark tasks](screenshots/13-dark-mode-tasks.png) Dark mode: tasks |
 
-The tablet layout at 768px is in [`docs/screenshots/14-tablet-tasks.png`](docs/screenshots/14-tablet-tasks.png). Regenerate all screenshots with `npm run screenshots` (it needs the seed data).
+The tablet layout at 768px is in [`screenshots/14-tablet-tasks.png`](screenshots/14-tablet-tasks.png). Regenerate all screenshots with `npm run screenshots` (it needs the seed data).
 
 ## Tech stack
 
@@ -162,7 +162,7 @@ npm run seed          # idempotent: does nothing if the sample data is already t
 npm run seed:reset    # wipes the sprint_manager collections, then seeds again
 ```
 
-The seed goes through the service layer, so every rule and the real task-number counters apply. It creates:
+The seed script is [`backend/scripts/seed.py`](backend/scripts/seed.py). It goes through the service layer, so every rule and the real task-number counters apply. It creates:
 
 - 6 developers (1 inactive)
 - 3 products: Learning Platform/LEARN, Payments Gateway/PAY, Mobile App/MOBI
@@ -314,6 +314,7 @@ frontend/
   lib/            API client and types, zod schemas, formatting, visual metadata
   tests/          unit/ (Vitest) · e2e/ (Playwright smoke + screenshots)
 scripts/          cross-platform npm helpers (setup, venv python runner, secret check)
-docs/screenshots/ README images (captured by Playwright)
+screenshots/      README images (captured by Playwright)
+docs/             demo.webm (40 s product tour)
 docker-compose.yml  optional local MongoDB (single-node replica set)
 ```

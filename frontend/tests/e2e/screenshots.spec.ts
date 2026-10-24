@@ -3,12 +3,12 @@ import path from "node:path";
 import { expect, test, type Page } from "@playwright/test";
 
 /**
- * Captures the README screenshots into /docs/screenshots. Expects the seeded sample data
+ * Captures the README screenshots into /screenshots. Expects the seeded sample data
  * (`npm run seed`). Read-only: nothing is created or changed.
  */
 
 const API = "http://localhost:8000/api/v1";
-const OUT = path.resolve(__dirname, "../../../docs/screenshots");
+const OUT = path.resolve(__dirname, "../../../screenshots");
 
 async function shot(page: Page, name: string, fullPage = false) {
   // Let charts, fonts and toasts settle.
