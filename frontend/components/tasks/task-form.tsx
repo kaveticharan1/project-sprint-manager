@@ -1,7 +1,7 @@
 "use client";
 
 import { Loader2 } from "lucide-react";
-import { useEffect, useMemo, useRef, type ReactNode } from "react";
+import { useMemo, type ReactNode } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 
 import { DeveloperAvatar, SeverityLabel, StatusLabel, TagBadge } from "@/components/badges";
@@ -23,7 +23,8 @@ import { useSaveTask } from "@/hooks/use-tasks";
 import { SEVERITIES, STATUSES, type Sprint, type Task } from "@/lib/api/types";
 import { formatRange, formatShortDate, toISODate } from "@/lib/format";
 import {
-  makeTaskSchema,
+  taskDateErrors,
+  taskSchema,
   type TaskFormInput,
   type TaskFormOutput,
 } from "@/lib/schemas";
@@ -84,15 +85,8 @@ export function TaskForm({
   const products = useAllProducts();
   const developers = useAllDevelopers();
 
-  // The schema looks the sprint up lazily, so it always sees the latest sprint list.
-  const sprintLookup = useRef<Sprint[]>([]);
-  const resolver = useMemo(
-    () => zodResolver(makeTaskSchema((id) => sprintLookup.current.find((s) => s.id === id))),
-    [],
-  );
-
   const form = useForm<TaskFormInput, unknown, TaskFormOutput>({
-    resolver,
+    resolver: zodResolver(taskSchema),
     defaultValues: toFormValues(task, defaults),
   });
   const { register, control, handleSubmit, setValue, setError, getValues, formState } = form;
@@ -102,9 +96,6 @@ export function TaskForm({
   const sprintId = useWatch({ control, name: "sprint_id" });
   const sprints = useProductSprints(productId || undefined);
   const sprintList = useMemo(() => sprints.data?.items ?? [], [sprints.data]);
-  useEffect(() => {
-    sprintLookup.current = sprintList;
-  }, [sprintList]);
   const sprint = sprintList.find((s) => s.id === sprintId);
 
   // Active developers can be assigned; an existing inactive assignee stays visible as-is.
@@ -131,6 +122,14 @@ export function TaskForm({
   };
 
   const onSubmit = handleSubmit(async (values) => {
+    // Cross-field rule the static schema can't know: dates must sit inside the chosen sprint.
+    const dateErrors = Object.entries(taskDateErrors(values, sprint));
+    if (dateErrors.length) {
+      dateErrors.forEach(([field, message], i) =>
+        setError(field as "start_date" | "end_date", { type: "sprint", message }, { shouldFocus: i === 0 }),
+      );
+      return;
+    }
     try {
       const saved = await save.mutateAsync(values);
       onSaved(saved);

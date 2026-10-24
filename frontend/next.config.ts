@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
+  devIndicators: false,
   turbopack: {
     // The repo root has its own package.json for orchestration scripts; this app lives here.
     root: process.cwd(),

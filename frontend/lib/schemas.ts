@@ -68,45 +68,42 @@ export const sprintSchema = z
 export type SprintFormInput = z.input<typeof sprintSchema>;
 export type SprintFormOutput = z.output<typeof sprintSchema>;
 
-/**
- * Task form schema. ``findSprint`` resolves the selected sprint so dates can be checked
- * against its range before the request is sent.
- */
-export function makeTaskSchema(findSprint: (id: string) => SprintRef | undefined) {
-  return z
-    .object({
-      title: z
-        .string()
-        .trim()
-        .min(3, "Title must be at least 3 characters")
-        .max(120, "Title must be at most 120 characters"),
-      description: optionalText(5000, "Description"),
-      product_id: z.string().min(1, "Choose a product"),
-      sprint_id: z.string().min(1, "Choose a sprint"),
-      developer_id: z.string().transform((value) => value || null),
-      severity: z.enum(SEVERITIES, { error: "Choose a severity" }),
-      status: z.enum(STATUSES, { error: "Choose a status" }),
-      start_date: requiredDate("Start date"),
-      end_date: requiredDate("End date"),
-    })
-    .superRefine((v, ctx) => {
-      if (v.start_date > v.end_date) {
-        ctx.addIssue({
-          code: "custom",
-          path: ["end_date"],
-          message: "End date must be on or after the start date",
-        });
-      }
-      const sprint = findSprint(v.sprint_id);
-      if (!sprint) return;
-      const window = `Sprint ${sprint.number} runs ${formatDate(sprint.start_date, "MMM d")} – ${formatDate(sprint.end_date, "MMM d")}`;
-      for (const field of ["start_date", "end_date"] as const) {
-        const value = v[field];
-        if (value < sprint.start_date || value > sprint.end_date) {
-          ctx.addIssue({ code: "custom", path: [field], message: `Outside the sprint. ${window}` });
-        }
-      }
-    });
+export const taskSchema = z
+  .object({
+    title: z
+      .string()
+      .trim()
+      .min(3, "Title must be at least 3 characters")
+      .max(120, "Title must be at most 120 characters"),
+    description: optionalText(5000, "Description"),
+    product_id: z.string().min(1, "Choose a product"),
+    sprint_id: z.string().min(1, "Choose a sprint"),
+    developer_id: z.string().transform((value) => value || null),
+    severity: z.enum(SEVERITIES, { error: "Choose a severity" }),
+    status: z.enum(STATUSES, { error: "Choose a status" }),
+    start_date: requiredDate("Start date"),
+    end_date: requiredDate("End date"),
+  })
+  .refine((v) => v.start_date <= v.end_date, {
+    path: ["end_date"],
+    message: "End date must be on or after the start date",
+  });
+export type TaskFormInput = z.input<typeof taskSchema>;
+export type TaskFormOutput = z.output<typeof taskSchema>;
+
+/** Task dates must fall inside the chosen sprint. Returns a message per offending field. */
+export function taskDateErrors(
+  dates: { start_date: string; end_date: string },
+  sprint: SprintRef | undefined,
+): Partial<Record<"start_date" | "end_date", string>> {
+  if (!sprint) return {};
+  const window = `Sprint ${sprint.number} runs ${formatDate(sprint.start_date, "MMM d")} – ${formatDate(sprint.end_date, "MMM d")}`;
+  const errors: Partial<Record<"start_date" | "end_date", string>> = {};
+  for (const field of ["start_date", "end_date"] as const) {
+    const value = dates[field];
+    if (value < sprint.start_date || value > sprint.end_date) {
+      errors[field] = `Outside the sprint. ${window}`;
+    }
+  }
+  return errors;
 }
-export type TaskFormInput = z.input<ReturnType<typeof makeTaskSchema>>;
-export type TaskFormOutput = z.output<ReturnType<typeof makeTaskSchema>>;
