@@ -71,18 +71,18 @@ export function TaskTable({
 
   return (
     <div className={cn("overflow-hidden rounded-xl border bg-card shadow-xs", className)}>
-      <Table className="min-w-[960px]">
+      <Table className="min-w-[900px]">
         <TableHeader className="bg-muted/40">
           <TableRow className="hover:bg-transparent">
-            <SortHeader label="Task" column="number" sort={sort} onSort={onSort} className="w-28 pl-4" />
-            <SortHeader label="Title" column="title" sort={sort} onSort={onSort} />
-            {show("product") && <TableHead className="w-20">Product</TableHead>}
-            {show("sprint") && <TableHead className="w-16">Sprint</TableHead>}
-            {show("assignee") && <TableHead className="w-44">Assignee</TableHead>}
-            <SortHeader label="Severity" column="severity" sort={sort} onSort={onSort} className="w-28" />
-            <SortHeader label="Status" column="status" sort={sort} onSort={onSort} className="w-36" />
-            <SortHeader label="Start" column="start_date" sort={sort} onSort={onSort} className="w-20" />
-            <SortHeader label="End" column="end_date" sort={sort} onSort={onSort} className="w-24 pr-4" />
+            <SortHeader label="Task" column="number" sort={sort} onSort={onSort} className="pl-4" />
+            <SortHeader label="Title" column="title" sort={sort} onSort={onSort} className="w-full min-w-48" />
+            {show("product") && <TableHead>Product</TableHead>}
+            {show("sprint") && <TableHead>Sprint</TableHead>}
+            {show("assignee") && <TableHead>Assignee</TableHead>}
+            <SortHeader label="Severity" column="severity" sort={sort} onSort={onSort} />
+            <SortHeader label="Status" column="status" sort={sort} onSort={onSort} />
+            <SortHeader label="Start" column="start_date" sort={sort} onSort={onSort} />
+            <SortHeader label="End" column="end_date" sort={sort} onSort={onSort} className="pr-4" />
           </TableRow>
         </TableHeader>
         <TableBody>

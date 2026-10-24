@@ -84,7 +84,7 @@ export function TaskUIProvider({ children }: { children: ReactNode }) {
       </Dialog>
 
       <Sheet open={taskId !== null} onOpenChange={(open) => !open && setTaskId(null)}>
-        <SheetContent className="flex w-full flex-col gap-0 p-0 sm:max-w-xl">
+        <SheetContent className="flex w-full flex-col gap-0 p-0 data-[side=right]:w-full data-[side=right]:sm:max-w-xl">
           {taskId && <TaskDetail id={taskId} onClose={() => setTaskId(null)} />}
         </SheetContent>
       </Sheet>

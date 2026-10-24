@@ -8,11 +8,16 @@ import { useAllDevelopers } from "@/hooks/use-developers";
 import { useQuickEditTask } from "@/hooks/use-tasks";
 import { errorMessage } from "@/lib/api/client";
 import { STATUSES, type Status, type Task } from "@/lib/api/types";
+import { cn } from "@/lib/utils";
 
 const NONE = "__none__";
 
 // Inline controls live inside clickable rows; keep their clicks from opening the row.
 const stop = (e: React.SyntheticEvent) => e.stopPropagation();
+
+// Borderless until hovered/focused; the chevron is hidden to keep dense tables compact.
+const TRIGGER =
+  "h-7 gap-1 border-transparent bg-transparent px-1 shadow-none hover:border-input dark:bg-transparent [&>svg:last-child]:hidden";
 
 export function InlineStatus({ task }: { task: Task }) {
   const edit = useQuickEditTask();
@@ -33,7 +38,7 @@ export function InlineStatus({ task }: { task: Task }) {
         <SelectTrigger
           size="sm"
           aria-label={`Status of ${task.number}`}
-          className="h-7 border-transparent bg-transparent px-1 shadow-none hover:border-input dark:bg-transparent"
+          className={TRIGGER}
         >
           <StatusBadge status={task.status} />
         </SelectTrigger>
@@ -88,7 +93,7 @@ export function InlineAssignee({ task }: { task: Task }) {
         <SelectTrigger
           size="sm"
           aria-label={`Assignee of ${task.number}`}
-          className="h-7 max-w-44 border-transparent bg-transparent px-1 shadow-none hover:border-input dark:bg-transparent"
+          className={cn(TRIGGER, "max-w-40")}
         >
           {task.developer ? (
             <span className="flex min-w-0 items-center gap-2">

@@ -32,7 +32,7 @@ export function Field({
   children: ReactNode;
 }) {
   return (
-    <div className={cn("grid gap-1.5", className)}>
+    <div className={cn("grid min-w-0 gap-1.5", className)}>
       <Label htmlFor={id} className="text-sm font-medium">
         {label}
         {required && (

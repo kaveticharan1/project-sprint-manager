@@ -34,14 +34,14 @@ export const SEVERITY_META: Record<Severity, VisualMeta> = {
     badge:
       "bg-orange-50 text-orange-700 ring-orange-600/20 dark:bg-orange-500/10 dark:text-orange-300 dark:ring-orange-400/30",
     text: "text-orange-600 dark:text-orange-400",
-    chart: "#ea580c",
+    chart: "#f97316",
   },
   Medium: {
     icon: Equal,
     badge:
       "bg-amber-50 text-amber-800 ring-amber-600/25 dark:bg-amber-500/10 dark:text-amber-300 dark:ring-amber-400/30",
     text: "text-amber-600 dark:text-amber-400",
-    chart: "#d97706",
+    chart: "#eab308",
   },
   Low: {
     icon: ChevronDown,

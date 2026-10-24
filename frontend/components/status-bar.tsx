@@ -23,7 +23,7 @@ export function StatusBar({
       <div
         role="img"
         aria-label={`${summary}${total ? ` (${Math.round((done / total) * 100)}% done)` : ""}`}
-        className="flex h-2 w-full overflow-hidden rounded-full bg-muted"
+        className="flex h-2 w-full gap-0.5 overflow-hidden rounded-full bg-muted"
       >
         {total > 0 &&
           STATUSES.map((status) =>
